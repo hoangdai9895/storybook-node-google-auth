@@ -1,0 +1,35 @@
+<nav class="grey darken-3">
+  <div class="container">
+    <div class="nav-wrapper">
+      <a href="/stories" class="brand-logo center">RtoryBooks</a>
+      <a href="#" data-activates="main-menu" class="button-collapse show-on-large"><i class="fa fa-bars"></i></a>
+
+      <ul class="right hide-on-small-only">
+        {{#if user}}
+        <li><a href="/dashboard">Welcome {{user.firstName}}</a></li>
+        <li><a href="/auth/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        {{else}}
+        <li><a href="/stories"><i class="fa fa-book"></i>Public Stories</a></li>
+        {{/if}}
+      </ul>
+
+      {{!-- side menu --}}
+      <ul class="side-nav" id="main-menu">
+
+        {{#if user}}
+
+        {{else}}
+        <li>
+          <a href="/auth/google" class="btn red darken-1"><i class="fab fa-google"></i>Login with Google account</a>
+        </li>
+        {{/if}}
+        <li><a href="/stories"><i class="fa fa-book"></i>Public Stories</a></li>
+        {{#if user}}
+        <li class="divider"></li>
+        <li><a href="/dáhboard"><i class="fa fa-user"></i>My stories</a></li>
+        <li><a href="/auth/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        {{/if}}
+      </ul>
+    </div>
+  </div>
+</nav>
