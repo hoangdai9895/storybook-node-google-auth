@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col s12 m8">
+    <h3>{{story.title}}</h3>
+  </div>
+  <div class="col s12 m8">
+    <div class="card-content">
+      <span class="card-title">
+        {{ formatDate story.date 'MMMM D YYYY'}}
+      </span>
+      {{{story.body}}}
+    </div>
+    {{#if story.allowComments}}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">
+          Comment
+        </span>
+        {{#if user}}
+        <form action="/stories/comment/{{story.id}}" method="post">
+          <div class="input-field">
+            <textarea name="commentBody" class="materialize-textarea"></textarea>
+            <label for="">Add Comment</label>
+          </div>
+          <input type="submit" value="Submit" class="btn">
+        </form>
+        {{else}}
+        <p>Please <a href="/auth/google">log in</a> to leave a comment</p>
+        {{/if}}
+      </div>
+      {{#each story.comments}}
+      <div class="card">
+        <div class="card-content">
+          <h5>{{commentBody}}</h5>
+          <div class="chip">
+            <img src="{{commentUser.image}}" alt="">
+            {{commentUser.firstName}} {{commentUser.lastName}}
+            <br>
+            <small>Posted: {{formatDate commentDate 'MMMM Do YYYY'}}</small>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+  </div>
+  <div class="col s12 m4">
+    <div class="card center-align">
+      <div class="card-content">
+        <span class="card title">
+          {{story.user.firstName}} {{story.user.lastName}}
+          <img src={{story.user.image}} alt="" class="responsive-img circle">
+        </span>
+      </div>
+      <div class="card-action">
+        <a href="/stories/user/{{story.user.id}}">More from {{story.user.firstName}}</a>
+      </div>
+    </div>
+  </div>
+</div>

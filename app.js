@@ -6,8 +6,13 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const exphbs = require("express-handlebars");
 const path = require("path");
+const bodyParser = require("body-parser");
+const methodOverride = require("method-override");
 
+// load hanlebar helper
+const hdb = require("./helpers/hbd");
 // load Route
+const stories = require("./routes/stories");
 const auth = require("./routes/auth");
 const index = require("./routes/index");
 
@@ -21,9 +26,25 @@ mongoose.Promise = global.Promise;
 mongoose
     .connect(keys.mongoURI)
     .then(() => console.log("MongoDB connected!!"))
-    .catch(err => console.log(err));
+    .catch(err => console.log("aa" + err));
 
 const app = express();
+
+// hanlebars helpers
+const {
+    truncate,
+    scriptTags,
+    formatDate,
+    select,
+    editIcon
+} = require("./helpers/hbd");
+
+// method override
+app.use(methodOverride("_method"));
+
+// body parser middlaware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // static folder
 app.use(express.static(path.join(__dirname, "public")));
@@ -32,6 +53,13 @@ app.use(express.static(path.join(__dirname, "public")));
 app.engine(
     "handlebars",
     exphbs({
+        helpers: {
+            truncate,
+            scriptTags: scriptTags,
+            formatDate,
+            select,
+            editIcon
+        },
         defaultLayout: "main"
     })
 );
@@ -56,6 +84,7 @@ app.use((req, res, next) => {
 });
 
 // Route
+app.use("/stories", stories);
 app.use("/", index);
 app.use("/auth", auth);
 

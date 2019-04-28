@@ -2,3 +2,44 @@ a i {
     margin: 0 15px 0 0;
     vertical-align: middle;
 }
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.btn-floating.halfway-fab {
+    position: absolute;
+    right: 24px;
+    bottom: -20px;
+}
+
+.btn-floating.halfway-fab {
+    bottom: unset !important;
+    top: -20px !important;
+}
+
+.card .card-content p {
+    margin: 0;
+    color: inherit;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.dash-status {
+    text-transform: capitalize;
+}
+
+#delete-form {
+    display: inline;
+}
+
+.fa-edit {
+    margin: 0;
+}
